@@ -1,0 +1,164 @@
+#include <iostream>
+#include <fstream>
+#include <climits>
+using namespace std;
+
+#define MAX 100
+
+struct Edge {
+	int x, y, w;
+};
+
+void init(int &n) {
+	n = -1;
+}
+
+void inputGraph(int a[][MAX], int &n) {
+	cout << "Nhap so dinh do thi n: ";
+	cin >> n;
+	cout << "Nhap ma tan ke cua do thi co trong so(neu khong co duong, nhap -1): \n";
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cout << "Trong so canh tu dinh " << i + 1 << " den dinh " << j + 1 << ": ";
+			cin >> a[i][j];
+		}
+	}
+}
+
+void inputGraphFromFile(int a[][MAX], int &n) {
+	ifstream myFile("data.txt");
+	if (myFile.is_open()) {
+
+		myFile >> n;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				myFile >> a[i][j];
+			}
+		}
+		myFile.close();
+	}
+	else cout << "Khong doc duoc file!!!" << endl;
+}
+
+void outputGraph(int a[][MAX], int n) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cout << a[i][j] << "	";
+		}
+		cout << endl;
+	}
+}
+
+void prim(int a[][MAX], int u, int n) {
+	bool Tree[MAX];
+	for (int i = 0; i < MAX; i++)
+		Tree[i] = false;
+	Edge sp[MAX];
+	int d = 0, size = 0;
+	Tree[u] = true;
+	while (size < n - 1) {
+		int min_w = INT_MAX;
+		int X = -1, Y = -1;
+		for (int i = 0; i < n; i++) {
+			if (Tree[i] == true) {
+				for (int k = 0; k < n; k++) {
+					if ((i == 0 && k == 1) || (k == 0 && i == 1))
+						continue;
+					int j = k, wei = a[i][j];
+					if (wei != 0 && Tree[j] == false && wei < min_w) {
+						min_w = wei;
+						X = j, Y = i;
+					}
+				}
+			}
+		}
+		if (X != -1 && Y != -1) {
+			Edge temp;
+			temp.x = Y;
+			temp.y = X;
+			temp.w = min_w;
+			sp[size++] = temp;
+			Tree[X] = true;
+			d += min_w;
+		}
+	}
+	for (int i = 0; i < size; i++)
+		cout << sp[i].x << " - " << sp[i].y << " : " << sp[i].w << endl;
+	cout << "Weight of Tree: " << d << endl;
+}
+int main() {
+	int a[MAX][MAX];
+	int n;
+	int choice;
+	system("cls");
+	int on = 0;
+	// BAI TAP 4, Chuong 6, Tim kiem cay khung toi thieu, Prim
+	cout << "=====================BAI THUC HANH 4=====================" << endl;
+	//1.Khoi tao ma tran ke rong
+	cout << "1. Khoi tao MA TRAN KE rong." << endl;
+	//2.Nhap ma tran ke tu file
+	cout << "2. Nhap MA TRAN KE tu File." << endl;
+	//3.Nhap ma tran ke
+	cout << "3. Nhap MA TRAN KE." << endl;
+	//4.Xuat ma tran ke
+	cout << "4. Xuat MA TRAN KE." << endl;	
+	//5.Tim kiem cay khung toi thieu bang Prim
+	cout << "5. Tim kiem CAY KHUNG TOI THIEU bang Prim." << endl;
+	//6. Thoat
+	cout << "6. Thoat chuong trinh." << endl;
+	do {
+		cout << "Nhap lua chon cua ban: ";
+		cin >> choice;
+
+		switch (choice) {
+		case 1:
+			init(n);
+			on = 1;
+			cout << "Ban vua tao MA TRAN KE rong thanh cong !!!!\n";
+			break;
+		case 2:
+			if (on == 1) {
+				inputGraphFromFile(a, n);
+				cout << "Ban da nhap MA TRAN KE tu File !!!\n";
+			}
+			else {
+				cout << "Ban chua tao MA TRAN KE RONG!\n";
+			}
+			break;
+		case 3:
+			if (on == 1) {
+				inputGraph(a, n);
+				cout << "Ban da nhap MA TRAN KE !!!!\n";
+			}
+			else {
+				cout << "Ban chua tao MA TRAN KE rong !!!!!\n";
+			}
+			break;
+		case 4:
+			if (on == 1) {
+				outputGraph(a, n);
+			}
+			else {
+				cout << "Ban chua tao MA TRAN KE rong !!!\n";
+			}
+			break;
+		case 5:
+			if (on == 1) {
+				prim(a, 0, n);
+				break;
+			}
+			else {
+				cout << "Ban chua tao MA TRAN KE rong !!!" << endl;
+				break;
+			}
+		case 6:
+			cout << "Thoat chuong trinh...\n";
+			break;
+		default:
+			cout << "Hay nhap lua chon dung!!!\n";
+			break;
+		}
+	} while (choice != 6);
+
+	return 1;
+}
