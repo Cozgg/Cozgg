@@ -1,8 +1,6 @@
 <h1 align="center">Hi there 👋, I'm Huu Cong</h1>
 <h3 align="center">A Computer Science student with a dream of becoming a Software Engineer</h3>
 
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=your-github-username&label=Profile%20views&color=0e75b6&style=flat" alt="Cozgg" /> </p>
-
 - 🌱 I’m currently a 3rd-year Computer Science student at **Ho Chi Minh City Open University**.
 
 - 👨‍💻 All of my projects are available at my GitHub
