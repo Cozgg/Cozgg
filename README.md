@@ -50,3 +50,7 @@ I am a 3rd-year Computer Science student at Ho Chi Minh City Open University, pa
 <div align="center">
   <i>"It's not a bug, it's a feature."</i>
 </div>
+<div align="center">
+ 
+ <img width="600" height="370" alt="dog" src="https://github.com/user-attachments/assets/209cccc8-bdf5-465e-b062-16645fb0331e" />
+</div>
